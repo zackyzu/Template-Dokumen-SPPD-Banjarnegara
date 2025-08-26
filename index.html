@@ -94,8 +94,8 @@
                         <h3 class="font-semibold text-lg mt-4 text-gray-700">Pejabat Penanda Tangan</h3>
                         <div class="input-group"><label for="nama-pejabat">Nama Kepala Dinas</label><input type="text" id="nama-pejabat" value="SAGIYO, S.IP"></div>
                         <div class="input-group"><label for="nip-pejabat">NIP Kepala Dinas</label><input type="text" id="nip-pejabat" value="197210071999031007"></div>
-                        <div class="input-group"><label for="pemegang-spd-nama">Nama Pemegang SPD (Pegawai Pertama)</label><input type="text" id="pemegang-spd-nama"></div>
-                        <div class="input-group"><label for="pemegang-spd-nip">NIP Pemegang SPD (Pegawai Pertama)</label><input type="text" id="pemegang-spd-nip"></div>
+                        <div class="input-group"><label for="pemegang-spd-nama">Nama Pemegang SPD</label><input type="text" id="pemegang-spd-nama" placeholder="Isi nama pemegang SPD"></div>
+                        <div class="input-group"><label for="pemegang-spd-nip">NIP Pemegang SPD</label><input type="text" id="pemegang-spd-nip" placeholder="Isi NIP pemegang SPD"></div>
                     </div>
                     
                     <!-- Data Pegawai Dinamis -->
@@ -165,7 +165,7 @@
     
     <!-- Template untuk TTD (disembunyikan) -->
     <template id="signature-template">
-        <div class="w-full flex justify-between mt-4">
+        <div class="signature-block w-full flex mt-4" style="align-items: flex-end;">
             <div class="w-1/2 text-center">
                 <p>Pemegang SPD</p>
                 <div class="h-20"></div>
@@ -225,7 +225,7 @@
             addEmployeeForm();
 
             function formatTanggalIndonesia(dateString) { if (!dateString) return ''; return new Date(dateString).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); }
-            function getNamaHari(dateString) { if (!dateString) return ''; return new Date(datestring).toLocaleDateString('id-ID', { weekday: 'long' }); }
+            function getNamaHari(dateString) { if (!dateString) return ''; return new Date(dateString).toLocaleDateString('id-ID', { weekday: 'long' }); }
             
             function toCamelCase(s) {
                 return s.replace(/-./g, x => x[1].toUpperCase());
@@ -276,13 +276,6 @@
                     });
                 });
                 
-                if(employees.length > 0) {
-                    document.getElementById('pemegang-spd-nama').value = employees[0].nama;
-                    document.getElementById('pemegang-spd-nip').value = employees[0].nip;
-                    generalData.pemegangSpdNama = employees[0].nama || '[Nama Pemegang SPD]';
-                    generalData.pemegangSpdNip = employees[0].nip || '[NIP Pemegang SPD]';
-                }
-
                 document.querySelectorAll('#employee-list > div .font-bold').forEach((p, index) => {
                     p.textContent = `Pegawai ${index + 1}`;
                 });
