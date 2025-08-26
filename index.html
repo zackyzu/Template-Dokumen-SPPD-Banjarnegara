@@ -20,6 +20,9 @@
             box-shadow: 0 0 15px rgba(0,0,0,0.1);
             margin-bottom: 1.5rem;
             position: relative;
+            width: 210mm; /* A4 Width */
+            min-height: 297mm; /* A4 Height */
+            page-break-after: always;
         }
         .doc-header {
             text-align: center;
@@ -57,9 +60,6 @@
             border: 1px solid #D1D5DB;
             border-radius: 0.375rem;
         }
-        .page-break {
-            page-break-after: always;
-        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -94,8 +94,8 @@
                         <h3 class="font-semibold text-lg mt-4 text-gray-700">Pejabat Penanda Tangan</h3>
                         <div class="input-group"><label for="nama-pejabat">Nama Kepala Dinas</label><input type="text" id="nama-pejabat" value="SAGIYO, S.IP"></div>
                         <div class="input-group"><label for="nip-pejabat">NIP Kepala Dinas</label><input type="text" id="nip-pejabat" value="197210071999031007"></div>
-                        <div class="input-group"><label for="pemegang-spd-nama">Nama Pemegang SPD</label><input type="text" id="pemegang-spd-nama" placeholder="Isi nama pemegang SPD"></div>
-                        <div class="input-group"><label for="pemegang-spd-nip">NIP Pemegang SPD</label><input type="text" id="pemegang-spd-nip" placeholder="Isi NIP pemegang SPD"></div>
+                        <div class="input-group"><label for="pemegang-spd-nama">Nama Pemegang SPD</label><input type="text" id="pemegang-spd-nama" placeholder="Isi nama pemegang SPD manual"></div>
+                        <div class="input-group"><label for="pemegang-spd-nip">NIP Pemegang SPD</label><input type="text" id="pemegang-spd-nip" placeholder="Isi NIP pemegang SPD manual"></div>
                     </div>
                     
                     <!-- Data Pegawai Dinamis -->
@@ -165,8 +165,11 @@
     
     <!-- Template untuk TTD (disembunyikan) -->
     <template id="signature-template">
-        <div class="signature-block w-full flex mt-4" style="align-items: flex-end;">
+        <div class="signature-block w-full flex mt-4">
             <div class="w-1/2 text-center">
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
                 <p>Pemegang SPD</p>
                 <div class="h-20"></div>
                 <p class="font-bold underline" data-preview="pemegang-spd-nama">[Nama Pemegang SPD]</p>
@@ -341,31 +344,26 @@
             form.addEventListener('input', updatePreview);
             updatePreview();
 
-            document.getElementById('save-pdf').addEventListener('click', async function () {
+            document.getElementById('save-pdf').addEventListener('click', function () {
                 const { jsPDF } = window.jspdf;
                 const pdf = new jsPDF('p', 'mm', 'a4');
-                const pages = document.querySelectorAll('.document-preview');
+                const source = document.getElementById('preview-container');
                 const button = this;
 
                 button.textContent = 'Membuat PDF...';
                 button.disabled = true;
 
-                for (let i = 0; i < pages.length; i++) {
-                    const page = pages[i];
-                    const canvas = await html2canvas(page, { scale: 2 });
-                    const imgData = canvas.toDataURL('image/png');
-                    const pdfWidth = pdf.internal.pageSize.getWidth();
-                    const pdfHeight = pdf.internal.pageSize.getHeight();
-                    
-                    if (i > 0) {
-                        pdf.addPage();
-                    }
-                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                }
-
-                pdf.save('SPPD_Generated_Multi-Page.pdf');
-                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Simpan sebagai PDF';
-                button.disabled = false;
+                pdf.html(source, {
+                    callback: function (pdf) {
+                        pdf.save('SPPD_Generated_Multi-Page.pdf');
+                        button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Simpan sebagai PDF';
+                        button.disabled = false;
+                    },
+                    x: 0,
+                    y: 0,
+                    width: 210, // A4 width in mm
+                    windowWidth: 794 // A4 width in pixels for 96 DPI
+                });
             });
         });
     </script>
