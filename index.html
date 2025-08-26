@@ -169,10 +169,6 @@
 
             // Fungsi untuk menambahkan form pegawai baru
             function addEmployeeForm() {
-                if (employeeCount >= 3) {
-                    alert("Maksimal 3 pegawai.");
-                    return;
-                }
                 employeeCount++;
                 const employeeId = employeeCount;
                 const employeeFormHTML = `
@@ -198,7 +194,6 @@
                 if (e.target.classList.contains('remove-employee')) {
                     const id = e.target.dataset.id;
                     document.getElementById(`employee-${id}`).remove();
-                    // Kita tidak mengurangi employeeCount agar ID tetap unik
                     updatePreview(); // Perbarui pratinjau setelah menghapus
                 }
             });
@@ -239,12 +234,19 @@
                 const employees = [];
                 document.querySelectorAll('#employee-list > div').forEach(div => {
                     employees.push({
+                        id: div.id.split('-')[1],
                         nama: div.querySelector('.employee-name').value || '',
                         nip: div.querySelector('.employee-nip').value || '',
                         pangkat: div.querySelector('.employee-pangkat').value || '',
                         jabatan: div.querySelector('.employee-jabatan').value || ''
                     });
                 });
+                
+                // Urutkan ulang nomor pegawai di form
+                document.querySelectorAll('#employee-list > div .font-bold').forEach((p, index) => {
+                    p.textContent = `Pegawai ${index + 1}`;
+                });
+
 
                 // 3. Update Halaman 1 (Surat Tugas)
                 document.querySelectorAll('[data-preview]').forEach(el => {
@@ -268,11 +270,6 @@
                         `;
                     }
                 });
-                 // Tambahkan baris kosong jika kurang dari 3
-                for (let i = employees.length; i < 3; i++) {
-                    employeeTablePreview.innerHTML += `<tr><td class="text-center">${i + 1}.</td><td></td><td></td><td></td><td></td></tr>`;
-                }
-
 
                 // 4. Generate Halaman SPPD untuk setiap pegawai
                 const previewContainer = document.getElementById('preview-container');
