@@ -79,6 +79,8 @@
                     <div class="space-y-4">
                         <h3 class="font-semibold text-lg text-gray-700">Informasi Surat</h3>
                         <div class="input-group"><label for="nomor-surat">Nomor Surat (setelah 094/)</label><input type="text" id="nomor-surat" placeholder="Contoh: 123"></div>
+                        <div class="input-group"><label for="nama-dinas">Nama Dinas/Instansi</label><input type="text" id="nama-dinas" value="kominfo"></div>
+                        <div class="input-group"><label for="tahun-surat">Tahun</label><input type="number" id="tahun-surat"></div>
                         <div class="input-group"><label for="tanggal-surat">Tanggal Surat Dibuat</label><input type="date" id="tanggal-surat"></div>
 
                         <h3 class="font-semibold text-lg mt-4 text-gray-700">Detail Perjalanan Dinas</h3>
@@ -107,7 +109,7 @@
                 </form>
                 <div class="mt-8">
                     <button id="save-pdf" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                         Simpan sebagai PDF
                     </button>
                 </div>
@@ -119,7 +121,7 @@
                 <div id="page1" class="document-preview A4">
                     <div class="doc-header relative"><img src="image_539389.png" alt="Logo Banjarnegara"><h2 class="font-bold text-lg">PEMERINTAH KABUPATEN BANJARNEGARA</h2><h1 class="font-bold text-xl">DINAS KOMUNIKASI DAN INFORMATIKA</h1><p class="text-sm">Jl. A. Yani No. 16 Telp. (0286) 591043(PABX) Telex 25644, Fax. 591187 Banjarnegara 53414</p><p class="text-sm">http://banjarnegarakab.go.id E-mail : dinkominfo@banjarnegarakab.go.id</p></div>
                     <div class="body-surat mt-6 text-base">
-                        <div class="text-center mb-6"><p class="doc-title">SURAT TUGAS</p><p>Nomor : 094/ <span data-preview="nomor-surat">[Nomor Surat]</span> /kominfo/2025</p></div>
+                        <div class="text-center mb-6"><p class="doc-title">SURAT TUGAS</p><p>Nomor : 094/ <span data-preview="nomor-surat-full">[Nomor Surat]</span></p></div>
                         <table class="w-full mb-4"><tr><td class="align-top w-1/6">Dasar</td><td class="align-top w-px">:</td><td class="text-justify">1. Peraturan Daerah Kabupaten Banjarnegara Nomor 14 Tahun 2024 tentang Anggaran Pendapatan dan Belanja Daerah Tahun Anggaran 2025 (Lembaran Daerah Kabupaten Banjarnegara Tahun 2024 Nomor 14);<br>2. Peraturan Bupati Banjarnegara Nomor 17 Tahun 2025 tentang Perubahan Ketiga atas Peraturan Bupati Banjarnegara Nomor 49 Tahun 2024 tentang Penjabaran Anggaran Pendapatan dan Belanja Daerah Tahun Anggaran 2025; tanggal 27 Maret 2025</td></tr></table>
                         <p class="mb-2">Dengan ini ditugaskan kepada :</p>
                         <table class="doc-table w-full mb-4"><thead class="bg-gray-100"><tr><th class="w-8">NO</th><th>NAMA</th><th>NIP</th><th>Pangkat / Gol</th><th>Jabatan</th></tr></thead><tbody id="employee-table-preview"></tbody></table>
@@ -142,7 +144,7 @@
     <template id="sppd-page-template">
         <div class="document-preview A4 sppd-page">
             <div class="doc-header relative"><img src="image_539389.png" alt="Logo Banjarnegara"><h2 class="font-bold text-lg">PEMERINTAH KABUPATEN BANJARNEGARA</h2><h1 class="font-bold text-xl">DINAS KOMUNIKASI DAN INFORMATIKA</h1><p class="text-sm">Jl. A. Yani No. 16 Telp. (0286) 591043(PABX) Telex 25644, Fax. 591187 Banjarnegara 53414</p><p class="text-sm">http://banjarnegarakab.go.id E-mail : dinkominfo@banjarnegarakab.go.id</p></div>
-            <div class="mt-4"><table class="w-full"><tr><td class="w-1/4">PROVINSI</td><td>: JAWA TENGAH</td></tr><tr><td>KABUPATEN</td><td>: BANJARNEGARA</td></tr></table><div class="text-center my-2"><p class="doc-title">SURAT PERJALANAN DINAS</p><p>Nomor : 094/ <span data-preview="nomor-surat">[Nomor Surat]</span> /kominfo/2025</p></div></div>
+            <div class="mt-4"><table class="w-full"><tr><td class="w-1/4">PROVINSI</td><td>: JAWA TENGAH</td></tr><tr><td>KABUPATEN</td><td>: BANJARNEGARA</td></tr></table><div class="text-center my-2"><p class="doc-title">SURAT PERJALANAN DINAS</p><p>Nomor : 094/ <span data-preview="nomor-surat-full">[Nomor Surat]</span></p></div></div>
             <table class="doc-table w-full text-sm">
                 <tr><td class="w-8 text-center">1.</td><td class="w-1/3">Nama</td><td colspan="2"><span data-preview="nama-pegawai">[Nama Pegawai]</span></td></tr>
                 <tr><td class="text-center">2.</td><td>NIP</td><td colspan="2"><span data-preview="nip-pegawai">[NIP]</span></td></tr>
@@ -166,8 +168,10 @@
             const addEmployeeBtn = document.getElementById('add-employee');
             const employeeListContainer = document.getElementById('employee-list');
             let employeeCount = 0;
+            
+            // Set tahun saat ini sebagai default
+            document.getElementById('tahun-surat').value = new Date().getFullYear();
 
-            // Fungsi untuk menambahkan form pegawai baru
             function addEmployeeForm() {
                 employeeCount++;
                 const employeeId = employeeCount;
@@ -186,31 +190,33 @@
                 employeeListContainer.insertAdjacentHTML('beforeend', employeeFormHTML);
             }
 
-            // Event listener untuk tombol tambah pegawai
             addEmployeeBtn.addEventListener('click', addEmployeeForm);
 
-            // Event listener untuk tombol hapus pegawai (delegasi event)
             employeeListContainer.addEventListener('click', function(e) {
                 if (e.target.classList.contains('remove-employee')) {
                     const id = e.target.dataset.id;
                     document.getElementById(`employee-${id}`).remove();
-                    updatePreview(); // Perbarui pratinjau setelah menghapus
+                    updatePreview();
                 }
             });
 
-            // Inisialisasi dengan satu pegawai
             addEmployeeForm();
 
-            // Fungsi format tanggal
             function formatTanggalIndonesia(dateString) { if (!dateString) return ''; return new Date(dateString).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); }
             function getNamaHari(dateString) { if (!dateString) return ''; return new Date(dateString).toLocaleDateString('id-ID', { weekday: 'long' }); }
+            
+            function toCamelCase(s) {
+                return s.replace(/-./g, x => x[1].toUpperCase());
+            }
 
-            // Fungsi utama untuk memperbarui pratinjau
             function updatePreview() {
-                // 1. Kumpulkan semua data umum
+                const nomorSurat = document.getElementById('nomor-surat').value || '[Nomor Surat]';
+                const namaDinas = document.getElementById('nama-dinas').value || '[Nama Dinas]';
+                const tahunSurat = document.getElementById('tahun-surat').value || '[Tahun]';
+
                 const generalData = {
-                    nomorSurat: document.getElementById('nomor-surat').value || '[Nomor Surat]',
-                    tanggalSurat: formatTanggalIndonesia(document.getElementById('tanggal-surat').value),
+                    nomorSuratFull: `${nomorSurat}/${namaDinas}/${tahunSurat}`,
+                    tanggalSurat: formatTanggalIndonesia(document.getElementById('tanggal-surat').value) || '[Tanggal Surat]',
                     tugas: document.getElementById('tugas').value || '[Tugas]',
                     tempatTujuan: document.getElementById('tempat-tujuan').value || '[Tempat Tujuan]',
                     waktuPelaksanaan: document.getElementById('waktu-pelaksanaan').value || '[Waktu Pelaksanaan]',
@@ -219,18 +225,22 @@
                     nipPejabat: document.getElementById('nip-pejabat').value || '[NIP Pejabat]',
                     lamaPerjalanan: document.getElementById('lama-perjalanan').value || '[Lama]',
                     tanggalBerangkat: formatTanggalIndonesia(document.getElementById('tanggal-berangkat').value),
-                    hariTanggal: `${getNamaHari(document.getElementById('tanggal-berangkat').value)}, ${formatTanggalIndonesia(document.getElementById('tanggal-berangkat').value)}`,
+                    hariTanggal: `${getNamaHari(document.getElementById('tanggal-berangkat').value) || '[Hari]'}, ${formatTanggalIndonesia(document.getElementById('tanggal-berangkat').value) || '[Tanggal Berangkat]'}`,
                     tanggalKembali: ''
                 };
                 
                 const tanggalBerangkatValue = document.getElementById('tanggal-berangkat').value;
-                if (tanggalBerangkatValue && generalData.lamaPerjalanan) {
+                const lamaPerjalananValue = document.getElementById('lama-perjalanan').value;
+
+                if (tanggalBerangkatValue && lamaPerjalananValue) {
                     const startDate = new Date(tanggalBerangkatValue);
-                    startDate.setDate(startDate.getDate() + parseInt(generalData.lamaPerjalanan) - 1);
-                    generalData.tanggalKembali = formatTanggalIndonesia(startDate.toISOString().split('T')[0]);
+                    const duration = parseInt(lamaPerjalananValue, 10);
+                    if (!isNaN(startDate.getTime()) && !isNaN(duration)) {
+                        startDate.setDate(startDate.getDate() + duration - 1);
+                        generalData.tanggalKembali = formatTanggalIndonesia(startDate.toISOString().split('T')[0]);
+                    }
                 }
 
-                // 2. Kumpulkan data semua pegawai
                 const employees = [];
                 document.querySelectorAll('#employee-list > div').forEach(div => {
                     employees.push({
@@ -242,24 +252,21 @@
                     });
                 });
                 
-                // Urutkan ulang nomor pegawai di form
                 document.querySelectorAll('#employee-list > div .font-bold').forEach((p, index) => {
                     p.textContent = `Pegawai ${index + 1}`;
                 });
 
-
-                // 3. Update Halaman 1 (Surat Tugas) secara spesifik
-                const page1 = document.getElementById('page1');
-                page1.querySelectorAll('[data-preview]').forEach(el => {
-                    if (generalData[el.dataset.preview]) {
-                        el.textContent = generalData[el.dataset.preview];
+                document.querySelectorAll('.document-preview [data-preview]').forEach(el => {
+                    const key = toCamelCase(el.dataset.preview);
+                    if (generalData[key] !== undefined) {
+                        el.textContent = generalData[key];
                     }
                 });
 
                 const employeeTablePreview = document.getElementById('employee-table-preview');
-                employeeTablePreview.innerHTML = ''; // Kosongkan tabel
+                employeeTablePreview.innerHTML = '';
                 employees.forEach((emp, index) => {
-                    if (emp.nama || emp.nip || emp.pangkat || emp.jabatan) { // Tampilkan baris jika ada data
+                    if (emp.nama || emp.nip || emp.pangkat || emp.jabatan) {
                         employeeTablePreview.innerHTML += `
                             <tr>
                                 <td class="text-center">${index + 1}.</td>
@@ -272,31 +279,21 @@
                     }
                 });
 
-                // 4. Generate Halaman SPPD untuk setiap pegawai
                 const previewContainer = document.getElementById('preview-container');
-                // Hapus SPPD lama
                 previewContainer.querySelectorAll('.sppd-page').forEach(page => page.remove());
 
                 const sppdTemplate = document.getElementById('sppd-page-template');
                 employees.forEach(emp => {
-                    if (!emp.nama) return; // Jangan buat SPPD jika nama kosong
+                    if (!emp.nama) return;
 
                     const clone = sppdTemplate.content.cloneNode(true);
                     const newPage = clone.querySelector('.document-preview');
 
-                    // Isi data umum
-                    newPage.querySelector('[data-preview="nomor-surat"]').textContent = generalData.nomorSurat;
-                    newPage.querySelector('[data-preview="tugas"]').textContent = generalData.tugas;
-                    newPage.querySelector('[data-preview="alat-angkut"]').textContent = generalData.alatAngkut;
-                    newPage.querySelector('[data-preview="tempat-tujuan"]').textContent = generalData.tempatTujuan;
-                    newPage.querySelector('[data-preview="lama-perjalanan"]').textContent = generalData.lamaPerjalanan;
-                    newPage.querySelector('[data-preview="tanggal-berangkat"]').textContent = generalData.tanggalBerangkat;
-                    newPage.querySelector('[data-preview="tanggal-kembali"]').textContent = generalData.tanggalKembali;
-                    newPage.querySelector('[data-preview="tanggal-surat"]').textContent = generalData.tanggalSurat;
-                    newPage.querySelector('[data-preview="nama-pejabat"]').textContent = generalData.namaPejabat;
-                    newPage.querySelector('[data-preview="nip-pejabat"]').textContent = generalData.nipPejabat;
-
-                    // Isi data spesifik pegawai
+                    newPage.querySelectorAll('[data-preview]').forEach(el => {
+                        const key = toCamelCase(el.dataset.preview);
+                        if(generalData[key] !== undefined) el.textContent = generalData[key];
+                    });
+                    
                     newPage.querySelector('[data-preview="nama-pegawai"]').textContent = emp.nama;
                     newPage.querySelector('[data-preview="nip-pegawai"]').textContent = emp.nip;
                     newPage.querySelector('[data-preview="pangkat-gol"]').textContent = emp.pangkat;
@@ -306,11 +303,9 @@
                 });
             }
 
-            // Panggil updatePreview saat ada input di form
             form.addEventListener('input', updatePreview);
-            updatePreview(); // Panggil sekali saat load
+            updatePreview();
 
-            // Fungsi untuk menyimpan sebagai PDF multi-halaman
             document.getElementById('save-pdf').addEventListener('click', async function () {
                 const { jsPDF } = window.jspdf;
                 const pdf = new jsPDF('p', 'mm', 'a4');
@@ -341,4 +336,3 @@
     </script>
 </body>
 </html>
-
