@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Template SPPD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Times+New+Roman&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .document-preview {
+            font-family: 'Times New Roman', Times, serif;
+            color: #000;
+            background-color: #fff;
+            padding: 2.5rem;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+        .doc-header {
+            text-align: center;
+            border-bottom: 3px double #000;
+            padding-bottom: 5px;
+        }
+        .doc-header img {
+            width: 80px;
+            height: auto;
+            position: absolute;
+            left: 2.5rem;
+            top: 1.5rem;
+        }
+        .doc-title {
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        table.doc-table, .doc-table th, .doc-table td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 4px;
+            font-size: 12pt;
+        }
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.375rem;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto p-4 lg:p-8">
+        <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+            <h1 class="text-2xl font-bold text-gray-800">Template Dokumen SPPD Banjarnegara</h1>
+            <p class="text-gray-600 mt-2">Isi formulir di bawah ini untuk membuat Surat Tugas dan Surat Perjalanan Dinas. Pratinjau akan diperbarui secara otomatis.</p>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Kolom Formulir -->
+            <div class="lg:w-1/3 bg-white p-6 rounded-xl shadow-lg h-fit sticky top-8">
+                <h2 class="text-xl font-bold mb-4 border-b pb-2">Data Isian</h2>
+                <form id="sppd-form">
+                    <div class="space-y-4">
+                        <h3 class="font-semibold text-lg mt-4 text-gray-700">Informasi Surat</h3>
+                        <div class="input-group">
+                            <label for="nomor-surat">Nomor Surat (setelah 094/)</label>
+                            <input type="text" id="nomor-surat" placeholder="Contoh: 123">
+                        </div>
+                        <div class="input-group">
+                            <label for="tanggal-surat">Tanggal Surat Dibuat</label>
+                            <input type="date" id="tanggal-surat">
+                        </div>
+
+                        <h3 class="font-semibold text-lg mt-4 text-gray-700">Data Pegawai</h3>
+                        <div class="input-group">
+                            <label for="nama-pegawai">Nama Pegawai</label>
+                            <input type="text" id="nama-pegawai" value="Muji Prasetyo SE">
+                        </div>
+                        <div class="input-group">
+                            <label for="nip-pegawai">NIP</label>
+                            <input type="text" id="nip-pegawai" value="197501272006041008">
+                        </div>
+                        <div class="input-group">
+                            <label for="pangkat-gol">Pangkat / Golongan</label>
+                            <input type="text" id="pangkat-gol" value="IIIa">
+                        </div>
+                         <div class="input-group">
+                            <label for="jabatan">Jabatan</label>
+                            <input type="text" id="jabatan" value="Staf">
+                        </div>
+
+                        <h3 class="font-semibold text-lg mt-4 text-gray-700">Detail Perjalanan Dinas</h3>
+                        <div class="input-group">
+                            <label for="tugas">Untuk Melaksanakan Tugas</label>
+                            <textarea id="tugas" rows="3">Koordinasi pelaksanaan Taping kegiatan Talks Show Bupati Banjarnegara dengan Bea Cukai Purwokerto sosialisasi DBHCHT TA anggaran 2025.</textarea>
+                        </div>
+                        <div class="input-group">
+                            <label for="tanggal-berangkat">Tanggal Berangkat</label>
+                            <input type="date" id="tanggal-berangkat">
+                        </div>
+                        <div class="input-group">
+                            <label for="tempat-tujuan">Tempat Tujuan</label>
+                            <input type="text" id="tempat-tujuan" value="Semarang">
+                        </div>
+                         <div class="input-group">
+                            <label for="waktu-pelaksanaan">Waktu Pelaksanaan</label>
+                            <input type="text" id="waktu-pelaksanaan" value="08.00 wib s/d selesai">
+                        </div>
+                        <div class="input-group">
+                            <label for="lama-perjalanan">Lama Perjalanan (hari)</label>
+                            <input type="number" id="lama-perjalanan" value="1">
+                        </div>
+                         <div class="input-group">
+                            <label for="alat-angkut">Alat Angkut</label>
+                            <input type="text" id="alat-angkut" value="Dinas">
+                        </div>
+
+                        <h3 class="font-semibold text-lg mt-4 text-gray-700">Pejabat Penanda Tangan</h3>
+                         <div class="input-group">
+                            <label for="nama-pejabat">Nama Kepala Dinas</label>
+                            <input type="text" id="nama-pejabat" value="SAGIYO, S.IP">
+                        </div>
+                        <div class="input-group">
+                            <label for="nip-pejabat">NIP Kepala Dinas</label>
+                            <input type="text" id="nip-pejabat" value="197210071999031007">
+                        </div>
+                    </div>
+                </form>
+                <div class="mt-8">
+                    <button id="save-pdf" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Simpan sebagai PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Kolom Pratinjau -->
+            <div class="lg:w-2/3">
+                <!-- Halaman 1: Surat Tugas -->
+                <div id="page1" class="document-preview A4">
+                    <div class="doc-header relative">
+                        <img src="image_539389.png" alt="Logo Banjarnegara" onerror="this.onerror=null;this.src='https://placehold.co/80x100?text=Logo';">
+                        <h2 class="font-bold text-lg">PEMERINTAH KABUPATEN BANJARNEGARA</h2>
+                        <h1 class="font-bold text-xl">DINAS KOMUNIKASI DAN INFORMATIKA</h1>
+                        <p class="text-sm">Jl. A. Yani No. 16 Telp. (0286) 591043(PABX) Telex 25644, Fax. 591187 Banjarnegara 53414</p>
+                        <p class="text-sm">http://banjarnegarakab.go.id E-mail : dinkominfo@banjarnegarakab.go.id</p>
+                    </div>
+                    
+                    <div class="body-surat mt-6 text-base">
+                        <div class="text-center mb-6">
+                            <p class="doc-title">SURAT TUGAS</p>
+                            <p>Nomor : 094/ <span id="preview-nomor-surat-1">[Nomor Surat]</span> /kominfo/2025</p>
+                        </div>
+                        
+                        <table class="w-full mb-4">
+                            <tr>
+                                <td class="align-top w-1/6">Dasar</td>
+                                <td class="align-top w-px">:</td>
+                                <td class="text-justify">
+                                    1. Peraturan Daerah Kabupaten Banjarnegara Nomor 14 Tahun 2024 tentang Anggaran Pendapatan dan Belanja Daerah Tahun Anggaran 2025 (Lembaran Daerah Kabupaten Banjarnegara Tahun 2024 Nomor 14);<br>
+                                    2. Peraturan Bupati Banjarnegara Nomor 17 Tahun 2025 tentang Perubahan Ketiga atas Peraturan Bupati Banjarnegara Nomor 49 Tahun 2024 tentang Penjabaran Anggaran Pendapatan dan Belanja Daerah Tahun Anggaran 2025; tanggal 27 Maret 2025
+                                </td>
+                            </tr>
+                        </table>
+
+                        <p class="mb-2">Dengan ini ditugaskan kepada :</p>
+                        <table class="doc-table w-full mb-4">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="w-8">NO</th>
+                                    <th>NAMA</th>
+                                    <th>NIP</th>
+                                    <th>Pangkat / Gol</th>
+                                    <th>Jabatan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">1.</td>
+                                    <td><span id="preview-nama-pegawai-1">[Nama Pegawai]</span></td>
+                                    <td><span id="preview-nip-pegawai-1">[NIP]</span></td>
+                                    <td class="text-center"><span id="preview-pangkat-gol-1">[Pangkat/Gol]</span></td>
+                                    <td><span id="preview-jabatan-1">[Jabatan]</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">2.</td><td></td><td></td><td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">3.</td><td></td><td></td><td></td><td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p class="mb-2">Untuk melaksanakan Tugas : <span id="preview-tugas">[Tugas]</span> sebagai berikut :</p>
+                        <table class="mb-4 ml-8">
+                            <tr>
+                                <td>Hari/Tanggal</td>
+                                <td class="px-2">:</td>
+                                <td><span id="preview-hari-tanggal">[Hari, Tanggal Berangkat]</span></td>
+                            </tr>
+                            <tr>
+                                <td>Tempat</td>
+                                <td class="px-2">:</td>
+                                <td><span id="preview-tempat-tujuan-1">[Tempat Tujuan]</span></td>
+                            </tr>
+                            <tr>
+                                <td>Pukul</td>
+                                <td class="px-2">:</td>
+                                <td><span id="preview-waktu-pelaksanaan">[Waktu Pelaksanaan]</span></td>
+                            </tr>
+                        </table>
+
+                        <p class="mb-6">Setelah melaksanakan Tugas harap melaporkan hasil pelaksanaanya. Demikian untuk menjadikan perhatian dan dilaksanakan dengan penuh tanggung jawab.</p>
+
+                        <div class="flex justify-end">
+                            <div class="text-center w-1/2">
+                                <p>Banjarnegara, <span id="preview-tanggal-surat-1">[Tanggal Surat]</span></p>
+                                <p>Kepala Dinas Komunikasi dan Informatika</p>
+                                <p>Kabupaten Banjarnegara</p>
+                                <div class="h-20"></div>
+                                <p class="font-bold underline"><span id="preview-nama-pejabat-1">[Nama Pejabat]</span></p>
+                                <p>NIP. <span id="preview-nip-pejabat-1">[NIP Pejabat]</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Halaman 2: SPPD -->
+                <div id="page2" class="document-preview A4">
+                    <div class="doc-header relative">
+                        <img src="image_539389.png" alt="Logo Banjarnegara" onerror="this.onerror=null;this.src='https://placehold.co/80x100?text=Logo';">
+                        <h2 class="font-bold text-lg">PEMERINTAH KABUPATEN BANJARNEGARA</h2>
+                        <h1 class="font-bold text-xl">DINAS KOMUNIKASI DAN INFORMATIKA</h1>
+                        <p class="text-sm">Jl. A. Yani No. 16 Telp. (0286) 591043(PABX) Telex 25644, Fax. 591187 Banjarnegara 53414</p>
+                        <p class="text-sm">http://banjarnegarakab.go.id E-mail : dinkominfo@banjarnegarakab.go.id</p>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <table class="w-full">
+                            <tr>
+                                <td class="w-1/4">PROVINSI</td>
+                                <td>: JAWA TENGAH</td>
+                            </tr>
+                             <tr>
+                                <td>KABUPATEN</td>
+                                <td>: BANJARNEGARA</td>
+                            </tr>
+                        </table>
+                        <div class="text-center my-2">
+                            <p class="doc-title">SURAT PERJALANAN DINAS</p>
+                            <p>Nomor : 094/ <span id="preview-nomor-surat-2">[Nomor Surat]</span> /kominfo/2025</p>
+                        </div>
+                    </div>
+
+                    <table class="doc-table w-full text-sm">
+                        <tr>
+                            <td class="w-8 text-center">1.</td>
+                            <td class="w-1/3">Nama</td>
+                            <td colspan="2"><span id="preview-nama-pegawai-2">[Nama Pegawai]</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">2.</td>
+                            <td>NIP</td>
+                            <td colspan="2"><span id="preview-nip-pegawai-2">[NIP]</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">3.</td>
+                            <td>Pangkat dan Golongan</td>
+                            <td colspan="2"><span id="preview-pangkat-gol-2">[Pangkat/Gol]</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">4.</td>
+                            <td>Jabatan/Instansi</td>
+                            <td colspan="2"><span id="preview-jabatan-2">[Jabatan]</span> / Dinas Kominfo Kabupaten Banjarnegara</td>
+                        </tr>
+                         <tr>
+                            <td class="text-center">5.</td>
+                            <td>Tingkat Biaya Perjalanan Dinas</td>
+                            <td colspan="2">C</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">6.</td>
+                            <td>Maksud Perjalanan Dinas</td>
+                            <td colspan="2"><span id="preview-maksud-perjalanan">[Tugas]</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">7.</td>
+                            <td>Alat Angkutan yang dipergunakan</td>
+                            <td colspan="2"><span id="preview-alat-angkut">[Alat Angkut]</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">8.</td>
+                            <td>a. Tempat Berangkat<br>b. Tempat Tujuan</td>
+                            <td colspan="2">a. Banjarnegara<br>b. <span id="preview-tempat-tujuan-2">[Tempat Tujuan]</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">9.</td>
+                            <td>a. Lamanya Perjalanan Dinas<br>b. Tanggal Berangkat<br>c. Tanggal harus kembali</td>
+                            <td colspan="2">a. <span id="preview-lama-perjalanan">[Lama Perjalanan]</span> hari<br>b. <span id="preview-tanggal-berangkat">[Tanggal Berangkat]</span><br>c. <span id="preview-tanggal-kembali">[Tanggal Kembali]</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">10.</td>
+                            <td>Pembebanan Anggaran<br>a. Instansi<br>b. Akun</td>
+                            <td colspan="2"><br>a. Dinas Komunikasi dan Informatika<br>b. APBD Kabupaten Banjarnegara</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">11.</td>
+                            <td>Keterangan Lain-lain</td>
+                            <td colspan="2">-</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="w-full flex justify-end mt-4">
+                        <div class="w-1/2 text-center">
+                            <p>Dikeluarkan di: Banjarnegara</p>
+                            <p>Tanggal: <span id="preview-tanggal-surat-2">[Tanggal Surat]</span></p>
+                            <p>Kepala Dinas Komunikasi dan Informatika</p>
+                            <p>Kabupaten Banjarnegara</p>
+                            <div class="h-20"></div>
+                            <p class="font-bold underline"><span id="preview-nama-pejabat-2">[Nama Pejabat]</span></p>
+                            <p>Pembina Tk. I</p>
+                            <p>NIP. <span id="preview-nip-pejabat-2">[NIP Pejabat]</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('sppd-form');
+
+            // Fungsi untuk memformat tanggal ke format Indonesia (e.g., 17 Agustus 2025)
+            function formatTanggalIndonesia(dateString) {
+                if (!dateString) return '[Tanggal]';
+                const options = { day: 'numeric', month: 'long', year: 'numeric' };
+                return new Date(dateString).toLocaleDateString('id-ID', options);
+            }
+            
+            // Fungsi untuk mendapatkan nama hari
+            function getNamaHari(dateString) {
+                if (!dateString) return '[Hari]';
+                const options = { weekday: 'long' };
+                return new Date(dateString).toLocaleDateString('id-ID', options);
+            }
+
+            // Fungsi utama untuk memperbarui pratinjau
+            function updatePreview() {
+                const nomorSurat = document.getElementById('nomor-surat').value || '[Nomor Surat]';
+                const tanggalSuratValue = document.getElementById('tanggal-surat').value;
+                const tanggalSurat = formatTanggalIndonesia(tanggalSuratValue);
+                
+                const namaPegawai = document.getElementById('nama-pegawai').value || '[Nama Pegawai]';
+                const nipPegawai = document.getElementById('nip-pegawai').value || '[NIP]';
+                const pangkatGol = document.getElementById('pangkat-gol').value || '[Pangkat/Gol]';
+                const jabatan = document.getElementById('jabatan').value || '[Jabatan]';
+
+                const tugas = document.getElementById('tugas').value || '[Tugas]';
+                const tanggalBerangkatValue = document.getElementById('tanggal-berangkat').value;
+                const tanggalBerangkat = formatTanggalIndonesia(tanggalBerangkatValue);
+                const hariBerangkat = getNamaHari(tanggalBerangkatValue);
+
+                const tempatTujuan = document.getElementById('tempat-tujuan').value || '[Tempat Tujuan]';
+                const waktuPelaksanaan = document.getElementById('waktu-pelaksanaan').value || '[Waktu Pelaksanaan]';
+                const lamaPerjalanan = document.getElementById('lama-perjalanan').value || '[Lama]';
+                const alatAngkut = document.getElementById('alat-angkut').value || '[Alat Angkut]';
+
+                const namaPejabat = document.getElementById('nama-pejabat').value || '[Nama Pejabat]';
+                const nipPejabat = document.getElementById('nip-pejabat').value || '[NIP Pejabat]';
+
+                // Hitung tanggal kembali
+                let tanggalKembali = '[Tanggal Kembali]';
+                if (tanggalBerangkatValue && lamaPerjalanan) {
+                    const startDate = new Date(tanggalBerangkatValue);
+                    startDate.setDate(startDate.getDate() + parseInt(lamaPerjalanan) - 1);
+                    tanggalKembali = formatTanggalIndonesia(startDate.toISOString().split('T')[0]);
+                }
+
+                // Update Halaman 1 (Surat Tugas)
+                document.getElementById('preview-nomor-surat-1').textContent = nomorSurat;
+                document.getElementById('preview-nama-pegawai-1').textContent = namaPegawai;
+                document.getElementById('preview-nip-pegawai-1').textContent = nipPegawai;
+                document.getElementById('preview-pangkat-gol-1').textContent = pangkatGol;
+                document.getElementById('preview-jabatan-1').textContent = jabatan;
+                document.getElementById('preview-tugas').textContent = tugas;
+                document.getElementById('preview-hari-tanggal').textContent = `${hariBerangkat}, ${tanggalBerangkat}`;
+                document.getElementById('preview-tempat-tujuan-1').textContent = tempatTujuan;
+                document.getElementById('preview-waktu-pelaksanaan').textContent = waktuPelaksanaan;
+                document.getElementById('preview-tanggal-surat-1').textContent = tanggalSurat;
+                document.getElementById('preview-nama-pejabat-1').textContent = namaPejabat;
+                document.getElementById('preview-nip-pejabat-1').textContent = nipPejabat;
+                
+                // Update Halaman 2 (SPPD)
+                document.getElementById('preview-nomor-surat-2').textContent = nomorSurat;
+                document.getElementById('preview-nama-pegawai-2').textContent = namaPegawai;
+                document.getElementById('preview-nip-pegawai-2').textContent = nipPegawai;
+                document.getElementById('preview-pangkat-gol-2').textContent = pangkatGol;
+                document.getElementById('preview-jabatan-2').textContent = jabatan;
+                document.getElementById('preview-maksud-perjalanan').textContent = tugas;
+                document.getElementById('preview-alat-angkut').textContent = alatAngkut;
+                document.getElementById('preview-tempat-tujuan-2').textContent = tempatTujuan;
+                document.getElementById('preview-lama-perjalanan').textContent = lamaPerjalanan;
+                document.getElementById('preview-tanggal-berangkat').textContent = tanggalBerangkat;
+                document.getElementById('preview-tanggal-kembali').textContent = tanggalKembali;
+                document.getElementById('preview-tanggal-surat-2').textContent = tanggalSurat;
+                document.getElementById('preview-nama-pejabat-2').textContent = namaPejabat;
+                document.getElementById('preview-nip-pejabat-2').textContent = nipPejabat;
+            }
+
+            // Panggil updatePreview saat form diisi
+            form.addEventListener('input', updatePreview);
+            
+            // Inisialisasi pratinjau saat halaman dimuat
+            updatePreview();
+
+            // Fungsi untuk menyimpan sebagai PDF
+            document.getElementById('save-pdf').addEventListener('click', function () {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const page1 = document.getElementById('page1');
+                const page2 = document.getElementById('page2');
+                const button = this;
+                
+                button.textContent = 'Membuat PDF...';
+                button.disabled = true;
+
+                html2canvas(page1, { scale: 2 }).then(canvas1 => {
+                    const imgData1 = canvas1.toDataURL('image/png');
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = pdf.internal.pageSize.getHeight();
+                    pdf.addImage(imgData1, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                    
+                    return html2canvas(page2, { scale: 2 });
+                }).then(canvas2 => {
+                    const imgData2 = canvas2.toDataURL('image/png');
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = pdf.internal.pageSize.getHeight();
+                    pdf.addPage();
+                    pdf.addImage(imgData2, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                    
+                    pdf.save('SPPD_Generated.pdf');
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Simpan sebagai PDF';
+                    button.disabled = false;
+                }).catch(err => {
+                    console.error("Error generating PDF:", err);
+                    alert("Gagal membuat PDF. Silakan coba lagi.");
+                    button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Simpan sebagai PDF';
+                    button.disabled = false;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
